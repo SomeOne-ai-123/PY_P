@@ -1,55 +1,39 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Path to your dataset
-file_path = 'sample.csv'  # Make sure 'sample.csv' is in the same directory as your script
+# Assuming you have a dataset in a CSV file named 'dataset.csv'
+# Replace 'dataset.csv' with your actual dataset file path
+file_path = 'dataset.csv'
 
-try:
-    # Read the dataset
-    df = pd.read_csv(file_path)
-    
-    # i. Visualize the dataset using plot()
-    df.plot()
-    plt.title('Dataset Visualization')
-    plt.xlabel('Index')
-    plt.ylabel('Values')
-    plt.show()
+# Read the dataset into a pandas DataFrame
+df = pd.read_csv(file_path)
 
-    # ii. Draw the Scatter plot for the dataset on any column
-    # Replace 'column_name' and 'another_column_name' with actual column names in your dataset
-    df.plot.scatter(x='column_name', y='another_column_name')
-    plt.title('Scatter Plot')
-    plt.xlabel('Column Name')
-    plt.ylabel('Another Column Name')
-    plt.show()
+# i. Visualize the dataset using plot()
+df.plot()
+plt.title('Dataset Visualization')
+plt.show()
 
-    # iii. Display the scatter plot with different colors
-    # Replace 'color_column_name' with the actual column name used for coloring
-    colors = df['color_column_name']
-    df.plot.scatter(x='column_name', y='another_column_name', c=colors, colormap='viridis')
-    plt.title('Scatter Plot with Colors')
-    plt.xlabel('Column Name')
-    plt.ylabel('Another Column Name')
-    plt.show()
+# ii. Draw the Scatter plot for the dataset on any column
+# Let's assume you want to plot 'column_x' against 'column_y'
+column_x = 'column_x'
+column_y = 'column_y'
+df.plot.scatter(x=column_x, y=column_y)
+plt.title('Scatter Plot of {} vs {}'.format(column_x, column_y))
+plt.show()
 
-    # iv. Draw the Histogram for the dataset on any column
-    # Replace 'column_name' with actual column name in your dataset
-    df['column_name'].plot.hist(bins=30, alpha=0.5)
-    plt.title('Histogram')
-    plt.xlabel('Column Name')
-    plt.ylabel('Frequency')
-    plt.show()
+# iii. Display the scatter plot with different colors
+# Let's say you have a categorical column 'category' that you want to use for coloring
+color_column = 'category'
+df.plot.scatter(x=column_x, y=column_y, c=df[color_column], cmap='viridis')
+plt.title('Scatter Plot of {} vs {} (Colored by {})'.format(column_x, column_y, color_column))
+plt.colorbar()
+plt.show()
 
-except FileNotFoundError as e:
-    print(f"Error: {e}")
-    print("The file specified does not exist. Please check the file path and name.")
-except pd.errors.EmptyDataError as e:
-    print(f"Error: {e}")
-    print("The file is empty. Please provide a valid dataset.")
-except pd.errors.ParserError as e:
-    print(f"Error: {e}")
-    print("Error parsing the file. Please check the file format.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
-finally:
-    print("Execution of the dataset visualization is complete.")
+# iv. Draw the Histogram for the dataset on any column
+# Let's draw a histogram for 'column_z'
+column_z = 'column_z'
+df[column_z].plot.hist(bins=20)
+plt.title('Histogram of {}'.format(column_z))
+plt.xlabel(column_z)
+plt.ylabel('Frequency')
+plt.show()
